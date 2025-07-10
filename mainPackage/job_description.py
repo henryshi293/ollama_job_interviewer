@@ -6,14 +6,6 @@ from textwrap import dedent
 
 from .api import OllamaAPI
 
-_COMPANY_INFO = dedent(
-    """
-    Company: Cytoderm
-    Location: Beijing, China
-    """
-).strip()
-
-
 def _build_prompt(job_title: str) -> str:
     return dedent(
         f"""
@@ -26,10 +18,6 @@ def _build_prompt(job_title: str) -> str:
         3) Required skills and qualifications
         4) Nice-to-have skills
         5) Example day-to-day routine
-
-        Company details
-        ---------------
-        {_COMPANY_INFO}
 
         Do **not** ask any follow-up questions.
         """

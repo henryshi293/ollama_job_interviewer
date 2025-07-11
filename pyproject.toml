@@ -11,10 +11,16 @@ dependencies    = [
 
 
 [project.optional-dependencies]
+web = [
+    "streamlit>=1.35",            # Or reflex==0.5.2, fastapi==1.2 depending on choice
+    "pandas",
+]
+
 dev = ["pytest", "black", "ruff", "build", "twine"]
 
 [project.scripts]
-mypkg = "mypackage.cli:main"   # pip installs a `mypkg` shell command
+mainPackage = "mainPackage.__main__:cli"      # existing CLI
+mainPackage-web = "mainPackage.web:cli"     # website launcher
 
 [build-system]
 requires = ["setuptools>=68", "setuptools-scm>=8", "wheel"]

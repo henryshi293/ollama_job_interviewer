@@ -7,6 +7,7 @@ from io import BytesIO
 from pathlib import Path
 from typing import Iterable, List
 
+import pandas as pd
 from pypdf import PdfReader
 
 from .api import OllamaAPI
@@ -30,7 +31,7 @@ def _build_prompt(job_description: str, resume_texts: List[str]) -> str:
         f"**Job description**\n{job_description}\n\n"
         f"**Applicant résumés**\n\n{bullet_list}\n\n"
         "Rank the applicants from strongest to weakest **by name** if available, "
-        "or by the order given if none.  Return just a numbered list."
+        "or by the order given if none. Return a numbered list. Provide a pargraph about how you determined the rankings"
     )
 
 
@@ -40,9 +41,8 @@ def rank_applicants(
     *,
     api: OllamaAPI | None = None,
 ) -> str:
-    """Return a strength ranking for *pdf_paths* according to *job_description*."""
     resume_texts = [_extract_text_from_pdf(p) for p in pdf_paths]
     prompt = _build_prompt(job_description, resume_texts)
     client = api or OllamaAPI()
     response = client.query(prompt) or ""
-    return response.strip()
+    return response

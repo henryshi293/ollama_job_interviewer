@@ -24,9 +24,9 @@ def _build_prompt(job_title: str) -> str:
     ).strip()
 
 
-def generate_job_description(job_title: str, *, api: OllamaAPI | None = None) -> str:
+def generate_job_description(job_title: str, api: OllamaAPI | None = None):
     """Return a full job-description document for *job_title*."""
-    client = api or OllamaAPI()
+    client = OllamaAPI()
     prompt = _build_prompt(job_title)
-    response = client.query(prompt) or ""
+    response = client.query(prompt)
     return response.strip()

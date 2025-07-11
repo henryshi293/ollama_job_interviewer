@@ -1,3 +1,0 @@
-[console_scripts]
-mainPackage = mainPackage.__main__:cli
-mainPackage-web = mainPackage.web:cli
